@@ -39,7 +39,7 @@ class FileStorage:
                     'BaseModel': BaseModel, 'User': User, 'Place': Place,
                     'State': State, 'City': City, 'Amenity': Amenity,
                     'Review': Review
-                  }
+    }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
@@ -48,3 +48,11 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+    def delete(self, obj=None):
+        """Delete object """
+        cs_key = ""
+        if obj:
+            for key, value in self.__objects.items():
+                if value.id == obj.id:
+                    cs_key = key
+            del self.__objects[cs_key]      
